@@ -1,31 +1,26 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TextInput, Platform, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, TextInput, Platform, TouchableOpacity, FlatList } from 'react-native';
+import TaskList from '../../components/TaskList';
+import TasksContext from '../../components/context/TasksContext';
 
-interface Task {
-    id: string;
-    title: string;
-}
 
-function Home(): React.JSX.Element {
+const Home = (): React.JSX.Element => {
 
     const [newTask, setNewTask] = useState('');
-    const [tasks, setTasks] = useState<Task[]>([]);
+    const tasks = React.useContext(TasksContext);
+    console.log(tasks)
 
     const handleAddNewTask = () => {
         const data = {
             id: String(new Date().getTime()),
             title: newTask ? newTask : 'Task Empty'
         };
-
-        setTasks([...tasks]);
     };
 
     return (
         <SafeAreaView style={styles.safeArea} >
             <View style={styles.container} >
-                <Text style={styles.title} >
-                    Welcome, dev!
-                </Text>
+                <Text style={styles.title} > Welcome, dev! </Text>
                 <TextInput
                     placeholderTextColor='#9788AB'
                     placeholder='New task...'
@@ -38,7 +33,8 @@ function Home(): React.JSX.Element {
 
                 <Text style={styles.titleTasks} > My Tasks </Text>
 
-                <Text style={{ color: '#EBE9ED' }}> {newTask} </Text>
+                <TaskList />
+
             </View>
         </SafeAreaView>
     );
@@ -84,7 +80,7 @@ const styles = StyleSheet.create({
         color: '#EBE9ED',
         fontSize: 18,
         fontWeight: 'bold',
-    }
+    },
 });
 
 export default Home;
