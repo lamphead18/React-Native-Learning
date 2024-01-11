@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TextInput, Platform, TouchableOpacity, FlatList } from 'react-native';
-import TaskList from '../../components/TaskList';
-import TasksContext from '../../components/context/TasksContext';
+import { TaskList } from '../../components/TaskList';
+import { TasksContext } from '../../components/context/TasksContext';
 
 
-const Home = (): React.JSX.Element => {
+export const Home = (): React.JSX.Element => {
 
     const [newTask, setNewTask] = useState('');
-    const tasks = React.useContext(TasksContext);
-    console.log(tasks)
+    const { addTask } = React.useContext(TasksContext);
 
     const handleAddNewTask = () => {
         const data = {
             id: String(new Date().getTime()),
             title: newTask ? newTask : 'Task Empty'
         };
+
+        addTask(data);
     };
 
     return (
@@ -82,5 +83,3 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 });
-
-export default Home;

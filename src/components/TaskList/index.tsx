@@ -1,15 +1,15 @@
 import React from "react";
 
 import { FlatList, Text, TouchableOpacity, StyleSheet } from "react-native";
-import TasksContext, { ITasksContext } from "../context/TasksContext";
+import { TasksContext, ITask } from "../context/TasksContext";
 
-const TaskList = (): React.JSX.Element => {
+export const TaskList = (): React.JSX.Element => {
 
-    const tasks = React.useContext( TasksContext );
+    const { tasks } = React.useContext(TasksContext);
 
     return (
         <FlatList
-            data={tasks as unknown as ITasksContext[]}
+            data={tasks as unknown as ITask[]}
             keyExtractor={item => item.id}
             renderItem={({ item }) => (
                 <TouchableOpacity style={styles.buttonTask} >
@@ -35,4 +35,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default TaskList;
+// export default TaskList;
